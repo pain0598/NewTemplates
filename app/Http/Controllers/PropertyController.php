@@ -28,4 +28,9 @@ class PropertyController extends Controller
             dd($query);
         return view('resources.listManager');
     }
+
+
+    public function advanceSearch(){
+        return view('advanceSearch');
+    }
 }

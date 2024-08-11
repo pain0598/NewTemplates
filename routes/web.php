@@ -2,9 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdministrationController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\PropertyController;
+
+
+use App\Http\Controllers\UserPanelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +49,20 @@ Route::get('search-manager',[ManagerController::class,'searchManager'])->name('s
 
 
 Route::get('list-manager',[PropertyController::class,'listManager'])->name('list-manager');
+Route::get('advance-search',[PropertyController::class,'advanceSearch'])->name('advance-search');
 
+
+Route::group(['prefix' => 'administration'],function(){
+    Route::get('my-office-reports',[ManagerController::class,'myOfficeReports'])->name('admin-my-office-reports');
+    Route::get('manage-sources',[AdministrationController::class,'managesources'])->name('admin-manage-sources');
+    Route::get('manage-sources1',[AdministrationController::class,'managesources1'])->name('admin-manage-sources1');
+});
+
+
+
+
+
+
+Route::group(['prefix'=>'users'],function(){
+    Route::get('/',[UserPanelController::class,'index'])->name('users-index');
+});

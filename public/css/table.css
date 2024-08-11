@@ -1,0 +1,161 @@
+:root {
+    --allbackground: #ebecf0;
+    --table-background: #ffffff;
+    --table-primary: #101824;
+    --table-odd-row: #f6f9ff;
+    --table-gray: #a0a7b1;
+    --table-gray-background: #edeef1;
+    --table-gray-mid: #f1f2f6;
+}
+
+.table-widget {
+    border-radius: 1rem;
+    background-color: var(--table-background);
+    padding: 1.9rem;
+    border: 2px solid var(--table-gray-background);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px;
+    text-align: left;
+    overflow-x: auto;
+}
+
+.table-widget table {
+    max-width: fit-content;
+    border-collapse: collapse;
+}
+.table-widget caption {
+    font-size: 1.12rem;
+    font-weight: 700;
+    text-align: left;
+    margin: 0.5rem 0px;
+}
+
+.table-widget th {
+    padding: 1.25rem 1rem;
+    font-size: 0.875rem;
+    color: var(--table-gray);
+}
+
+.table-widget thead {
+    border-top: 2px solid var(--table-gray-background);
+}
+.table-widget tfoot {
+    margin-top: 1rem;
+    border-top: 2px solid var(--table-gray-background);
+}
+
+.table-widget td {
+    padding: 0.5rem 1rem;
+    vertical-align: middle;
+}
+.table-widget tbody tr {
+    cursor: pointer;
+}
+
+.table-widget tbody tr:nth-child(odd) {
+    background-color: var(--table-odd-row);
+}
+
+.table-widget tbody tr:hover {
+    background: #e2ecff;
+}
+.table-row-count {
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: var(--table-gray-mid);
+    padding: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 1rem;
+    border-radius: 0.5rem;
+}
+
+.team-member-profile {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+.profile-info__name {
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.team-member-profile img {
+    width: 3.125rem;
+    height: 3.125rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.status {
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-weight: 700;
+}
+
+.status--active {
+    background: #eafef3;
+    color: #2ecc71;
+}
+
+.status--inactive {
+    background-color: #fff6e5;
+    color: #f4bd50;
+}
+
+.status--offline {
+    background: var(--table-gray-mid);
+    color: var(--table-gray);
+}
+.tags {
+    display: flex;
+    gap: 0.5rem;
+}
+.tag {
+    padding: 0.5rem;
+    background: var(--table-gray-mid);
+    border-radius: 0.5rem;
+    font-weight: 700;
+}
+
+.tag::first-letter {
+    text-transform: uppercase;
+}
+
+.tag--design {
+    background-color: #f4efff;
+    color: #9a84da;
+}
+.tag-QA {
+    color: #df8fa8;
+    background: #fbdde7;
+}
+
+.tag--dev {
+    background: #eaf2ff;
+    color: #739fdc;
+}
+.tag--marketing {
+    background: #fff6e5;
+    color: #f4bd50;
+}
+
+
+/* Datatable  */
+#managesources_previous {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+#managesources_previous a {
+    width: 100% !important;
+    text-align: center !important;
+    padding:10px !important;
+}
+
+
