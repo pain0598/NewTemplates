@@ -172,8 +172,40 @@ class ManagerController extends Controller
     }
 
 
-    public function searchManager(){
-        
+    public function searchManager()
+    {
+
         return view('resources.searchManager');
+    }
+
+
+
+    // Administration
+    public function myOfficeReports(Request $request)
+    {
+        $fetchHistory = Login::with(['renterInfo.adminDetail'])
+            ->select('Login.Id', 'Login.Email', 'Login.CreatedOn', 'Login.Status')
+            ->where('user_type', 'C')
+            ->orderByDesc('Id')
+            ->take(5)
+            ->get();
+
+            // ->map(function ($login) {
+            //     return [
+            //         'Id' => $login->Id,
+            //         'Email' => $login->Email,
+            //         'admin_name' => $login->renterInfo->adminDetails->admin_name,
+            //         'CreatedOn' => $login->CreatedOn,
+            //         'Status' => $login->Status,
+            //         'added_by' => $login->renterInfo->added_by,
+            //         'Firstname' => $login->renterInfo->Firstname,
+            //         'phone' => $login->renterInfo->phone,
+            //         'Lastname' => $login->renterInfo->Lastname,
+            //     ];
+            // });
+
+            dd($fetchHistory);
+
+        return view('administration.myOfficeReports');
     }
 }

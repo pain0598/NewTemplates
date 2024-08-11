@@ -293,7 +293,7 @@
           <li class="nav-item with-sub">
             <a class="nav-link" href="#" data-toggle="dropdown">
               <i class="icon ion-ios-gear-outline"></i>
-              <span>Forms</span>
+              <span>administration</span>
             </a>
             <div class="sub-item">
               <ul>
@@ -304,7 +304,7 @@
                 <li><a href="form-editor.html">WYSIWYG Editor</a></li>
                 <li><a href="form-select2.html">Select2</a></li>
                 <li><a href="form-rangeslider.html">Range Slider</a></li>
-                <li><a href="form-datepicker.html">Datepicker</a></li>
+                <li><a href="{{route('admin-manage-sources')}}">Manage Sources </a></li>
               </ul>
             </div><!-- dropdown-menu -->
           </li>

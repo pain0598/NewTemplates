@@ -28,4 +28,9 @@ class RenterInfo extends Model
         return $this->belongsTo(Login::class,'Login_ID','Id');
     }
 
+    public function adminDetail()
+    {
+        return $this->belongsTo(AdminDetail::class, 'added_by', 'admin_detail_id');
+    }
+
 }
