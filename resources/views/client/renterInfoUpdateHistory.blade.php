@@ -60,6 +60,7 @@
         </div>
         <div class="row row-sm">
             <div class="col-lg-12">
+            <a href="{{ route('renter-info.export') }}" class="btn btn-success">Export All Records to CSV</a>
 
                 <div class="section-wrapper mg-t-20">
                     <form action="">
@@ -83,7 +84,7 @@
                                             <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                                         </div>
                                     </div>
-                                    <input id="dateMask" type="date"  name="tosearch" class="form-control" placeholder="MM/DD/YYYY">
+                                    <input id="dateMask" type="date" name="tosearch" class="form-control" placeholder="MM/DD/YYYY">
                                 </div>
                             </div>
 
@@ -91,7 +92,7 @@
                             <div class="col-lg-12 mt-4">
                                 <div class="form-group">
                                     <label class="form-control-label">Admin Name: </label>
-                                    <input class="form-control" type="text" name="adminname"  placeholder="Enter Admin Name">
+                                    <input class="form-control" type="text" name="adminname" placeholder="Enter Admin Name">
                                 </div>
                             </div>
 
@@ -104,52 +105,31 @@
 
                         </div>
                     </form>
-                </div>
-
-
-
-                <ul class="nav nav-activity-profile mg-t-20">
-                    <li class="nav-item"><a href="" class="nav-link"><i class="icon ion-ios-redo tx-purple"></i> Select All</a></li>
-                    <li class="nav-item"><a href="" class="nav-link"><i class="icon ion-image tx-primary"></i> Clear All</a></li>
-                </ul>
-
-
-
-
-                <div class="card card-latest-activity mg-t-20">
-                    <div class="card-body">
-                        <div class="slim-card-title">Latest Activity</div>
-                        <div class="media media-author">
-                            <img src="../img/img1.jpg" alt="">
-                            <div class="media-body">
-                                <h6><a href="">Katherine</a></h6>
-                                <p>Executive Director</p>
-                            </div>
-                            <span>2 hours ago</span>
+                    <div class="table">
+                        <div class="table-responsive mg-t-20">
+                            <table class="table" id="renterinfoupdate">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>djkjl</th>
+                                        <th>Salary</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
-
-                        <p class="activity-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
-
-                        <div class="row no-gutters">
-                            <div class="col-md-4">
-                                <a href=""><img src="../img/img16.jpg" class="img-fit-cover" alt=""></a>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="post-wrapper">
-                                    <a href="" class="activity-title">Sailing Basics: 10 Nautical &amp; Sailing Terms To Know</a>
-                                    <p>Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.</p>
-                                    <p class="mg-b-0">
-                                        <a href="" class="d-block">Charmaine Montuya</a>
-                                        <span>Writer &amp; Entrepreneur</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
 </div>
+
+
 @endsection
+@push('scripts')
+<script src="{{asset('js/ajax.js')}}"></script>
+@endpush

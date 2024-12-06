@@ -9,7 +9,7 @@ use App\Http\Controllers\PropertyController;
 
 
 use App\Http\Controllers\UserPanelController;
-
+use App\Http\Controllers\SettingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +25,9 @@ use App\Http\Controllers\UserPanelController;
 
 
 Route::get('/',[AdminController::class,'index']);
-Route::get('renter-info-update-history',[ClientController::class,'renterInfoUpdateHistory']);
+Route::post('/send-email',[AdminController::class,'sendEmail'])->name('send-email');
+Route::get('renter-info-update-history',[ClientController::class,'renterInfoUpdateHistory'])->name('admin-renter-update-history');
+Route::get('renter-info-update-history/export', [ClientController::class,'exportCsv'])->name('renter-info.export');
 Route::get('school-management',[ClientController::class,'schoolManagement']);
 Route::post('school-store',[ClientController::class,'schoolStore'])->name('schoolManagement.store');
 Route::post('/school-management/{id}',[ClientController::class, 'schoolDelete']);
@@ -63,6 +65,18 @@ Route::group(['prefix' => 'administration'],function(){
 
 
 
+
+
+
+
 Route::group(['prefix'=>'users'],function(){
     Route::get('/',[UserPanelController::class,'index'])->name('users-index');
+});
+
+
+
+Route::group(['prefix' => 'settings'],function(){
+    Route::get('manage-footer',[SettingController::class,'manageFooter'])->name('manage-footer');
+    Route::post('update-footer',[SettingController::class,'UpdateFooter'])->name('update-footer');
+
 });

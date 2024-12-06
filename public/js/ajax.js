@@ -36,6 +36,80 @@ $(function () {
     });
 });
 
+$(function () {
+    var table = $("#renterinfoupdate").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "renter-info-update-history",
+            data: function (d) {
+                d.rentername = $("input[name='rentername']").val();
+                d.adminname = $("input[name='adminname']").val();
+                d.fromsearch = $("input[name='fromsearch']").val();
+                d.tosearch = $("input[name='tosearch']").val();
+            },
+        },
+        columns: [{
+            data: "DT_RowIndex",
+            name: "DT_RowIndex",
+            orderable: true,
+            searchable: true,
+        },
+        {
+            data: 'rentername',
+            name: 'rentername',
+            orderable: true,
+            searchable: true,
+        },
+        {
+            data: 'adminname',
+            name: 'adminname',
+            orderable: true,
+            searchable: true,
+        },
+        {
+            data: 'updatedOn',
+            name: 'updatedOn',
+            orderable: true,
+            searchable: true,
+        },
+        {
+            data: 'action',
+            name: 'action',
+            orderable: false,
+            searchable: false
+        }
+        ],
+        order: [
+            [1, "asc"]
+        ],
+        pageLength: 40,
+        dom: "Bfrtip",
+        buttons: ["csv"],
+    });
+    $("form").on("submit", function (e) {
+        e.preventDefault();
+        table.draw();
+    });
+
+    // Reset form fields and reload the Datatable
+    $("button:contains('Reset')").on("click", function () {
+        $("form")[0].reset();
+        table.draw();
+    });
+    $('#exportCsv').on('click', function () {
+        let query = {
+            rentername: $("input[name='rentername']").val(),
+            adminname: $("input[name='adminname']").val(),
+            fromsearch: $("input[name='fromsearch']").val(),
+            tosearch: $("input[name='tosearch']").val(),
+        };
+
+        let url = `renter-info-update-history/export?${$.param(query)}`;
+        window.location.href = url;
+    });
+});
+
 $(document).on("click", ".edit", function () {
     var id = $(this).data("id");
     // Open a modal or inline editing interface here
@@ -99,7 +173,7 @@ $(document).on("click", ".edit", function () {
 //     // });
 // });
 
-$(document).on('click', '.delete-btn', function() {
+$(document).on('click', '.delete-btn', function () {
     var id = $(this).data("id");
     console.log("checkId", id);
     swal({

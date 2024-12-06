@@ -12,15 +12,182 @@ use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use App\Models\NotifyDetail;
 use Illuminate\Support\Facades\DB;
+// use Yajra\DataTables\Facades\DataTables;
+use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Response;
 
 class ClientController extends Controller
 {
-    public function renterInfoUpdateHistory()
+    public function renterInfoUpdateHistory(Request $request)
     {
-        $udpatehistorydata = RenterUpdateHistory::with('admindetailId')->with('renterinfoId')->get();
-        dd($udpatehistorydata);
+        $updateHistoryData = RenterUpdateHistory::with('admindetailId', 'renterinfoId');
+
+        if ($request->ajax()) {
+            if ($request->has('rentername') && $request->rentername != '') {
+                $updateHistoryData->whereHas('renterinfoId', function ($query) use ($request) {
+                    $query->where('Firstname', 'like', '%' . $request->rentername . '%');
+                });
+            }
+
+            if ($request->has('adminname') && $request->adminname != '') {
+                $updateHistoryData->whereHas('admindetailId', function ($query) use ($request) {
+                    $query->where('admin_name', 'like', '%' . $request->adminname . '%');
+                });
+            }
+
+            if ($request->has('fromsearch') && $request->fromsearch != '') {
+                $updateHistoryData->whereDate('updated_date', '>=', $request->fromsearch);
+            }
+
+            if ($request->has('tosearch') && $request->tosearch != '') {
+                $updateHistoryData->whereDate('updated_date', '<=', $request->tosearch);
+            }
+            return DataTables::of($updateHistoryData)
+                ->addIndexColumn()
+                ->addColumn('rentername', function ($query) {
+                    return $query->renterinfoId->Firstname ?? 'N/A';
+                })
+                ->addColumn('adminname', function ($query) {
+                    return $query->admindetailId->admin_name ?? 'N/A';
+                })
+                ->addColumn('updatedOn', function ($query) {
+                    return $query->updated_date ?? 'N/A';
+                })
+                ->addColumn('action', function ($query) {
+                    $edit = '<a href="" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>';
+                    $delete = '<a href="" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
+                    return $edit . $delete;
+                })
+                ->rawColumns(['rentername', 'adminname', 'updatedOn', 'action'])
+                ->setRowId('id')
+                ->make(true);
+        }
         return view('client.renterInfoUpdateHistory');
     }
+    // public function exportCsv(Request $request)
+    // {
+    //     $updateHistoryData = RenterUpdateHistory::with('admindetailId', 'renterinfoId');
+
+    //     // Apply filters if present
+    //     if ($request->has('rentername') && $request->rentername != '') {
+    //         $updateHistoryData->whereHas('renterinfoId', function ($query) use ($request) {
+    //             $query->where('Firstname', 'like', '%' . $request->rentername . '%');
+    //         });
+    //     }
+
+    //     if ($request->has('adminname') && $request->adminname != '') {
+    //         $updateHistoryData->whereHas('admindetailId', function ($query) use ($request) {
+    //             $query->where('admin_name', 'like', '%' . $request->adminname . '%');
+    //         });
+    //     }
+
+    //     if ($request->has('fromsearch') && $request->fromsearch != '') {
+    //         $updateHistoryData->whereDate('updated_date', '>=', $request->fromsearch);
+    //     }
+
+    //     if ($request->has('tosearch') && $request->tosearch != '') {
+    //         $updateHistoryData->whereDate('updated_date', '<=', $request->tosearch);
+    //     }
+
+    //     $records = $updateHistoryData->get();
+
+    //     $csvData = [
+    //         ['ID', 'Renter Name', 'Admin Name', 'Updated On'], // CSV Headers
+    //     ];
+
+    //     foreach ($records as $record) {
+    //         $csvData[] = [
+    //             $record->id,
+    //             $record->renterinfoId->Firstname ?? 'N/A',
+    //             $record->admindetailId->admin_name ?? 'N/A',
+    //             $record->updated_date ?? 'N/A',
+    //         ];
+    //     }
+
+    //     // Create and return CSV response
+    //     $filename = 'renter_info_update_history.csv';
+    //     $handle = fopen('php://output', 'w');
+    //     foreach ($csvData as $row) {
+    //         fputcsv($handle, $row);
+    //     }
+    //     fclose($handle);
+
+    //     $headers = [
+    //         'Content-Type' => 'text/csv',
+    //         'Content-Disposition' => "attachment; filename=\"$filename\"",
+    //     ];
+
+    //     return Response::make('', 200, $headers);
+    // }
+    public function exportCsv(Request $request)
+    {
+        $updateHistoryData = RenterUpdateHistory::with('admindetailId', 'renterinfoId');
+
+        // Apply filters if present
+        if ($request->has('rentername') && $request->rentername != '') {
+            $updateHistoryData->whereHas('renterinfoId', function ($query) use ($request) {
+                $query->where('Firstname', 'like', '%' . $request->rentername . '%');
+            });
+        }
+
+        if ($request->has('adminname') && $request->adminname != '') {
+            $updateHistoryData->whereHas('admindetailId', function ($query) use ($request) {
+                $query->where('admin_name', 'like', '%' . $request->adminname . '%');
+            });
+        }
+
+        if ($request->has('fromsearch') && $request->fromsearch != '') {
+            $updateHistoryData->whereDate('updated_date', '>=', $request->fromsearch);
+        }
+
+        if ($request->has('tosearch') && $request->tosearch != '') {
+            $updateHistoryData->whereDate('updated_date', '<=', $request->tosearch);
+        }
+
+        $records = $updateHistoryData->get();
+
+        $csvData = [
+            ['ID', 'Renter Name', 'Admin Name', 'Updated On'], // CSV Headers
+        ];
+
+        foreach ($records as $record) {
+            $csvData[] = [
+                $record->id,
+                $record->renterinfoId->Firstname ?? 'N/A',
+                $record->admindetailId->admin_name ?? 'N/A',
+                $record->updated_date ?? 'N/A',
+            ];
+        }
+
+        $filename = 'renter_info_update_history.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+        ];
+
+        // Open output stream for download
+        $handle = fopen('php://output', 'w');
+
+        // Add CSV rows
+        foreach ($csvData as $row) {
+            fputcsv($handle, $row);
+        }
+
+        fclose($handle);
+
+        return response()->streamDownload(function () use ($csvData) {
+            $handle = fopen('php://output', 'w');
+            foreach ($csvData as $row) {
+                fputcsv($handle, $row);
+            }
+            fclose($handle);
+        }, $filename, $headers);
+    }
+
+
+
+
 
     public function schoolManagement()
     {
@@ -93,7 +260,7 @@ class ClientController extends Controller
             ->limit($NoOfRcord)
             ->offset($Start)
             ->get();
-            dd($fetch_history);
+        dd($fetch_history);
         return view('client.notifyHistory');
     }
 }

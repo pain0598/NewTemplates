@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RenterUpdateHistory extends Model
 {
     use HasFactory;
-    protected $table = 'Renter_Update_History';
+    protected $table = 'renter_update_history';
 
 
     public function admindetailId(){

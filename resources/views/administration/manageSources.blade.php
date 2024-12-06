@@ -1,8 +1,8 @@
 @extends('layout.app')
 @section('content')
-@push('style')
+<!-- @push('style')
 <link rel="stylesheet" href="{{asset('css/table.css')}}">
-@endpush
+@endpush -->
 <div class="slim-mainpanel">
     <div class="container">
         <div class="slim-pageheader">
