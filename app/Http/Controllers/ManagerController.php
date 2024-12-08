@@ -8,7 +8,8 @@ use App\Models\Login;
 use App\Models\PropertyInfo;
 use Carbon\Carbon;
 use App\Models\RenterInfo;
-
+use App\Models\ManagerLogLogin;
+use Yajra\DataTables\DataTables;
 class ManagerController extends Controller
 {
     public function addManager()
@@ -207,5 +208,37 @@ class ManagerController extends Controller
             dd($fetchHistory);
 
         return view('administration.myOfficeReports');
+    }
+
+
+
+    public function manageLogLogin(Request $request){
+        $getManagerLogin = ManagerLogLogin::with('login')
+        ->orderBy('Id','desc')
+        ->get();
+        // dd($getManagerLogin);
+        if (request()->ajax()) {
+            return Datatables::of($getManagerLogin)
+            ->addIndexColumn()
+                ->addColumn('username',function($row){
+                    return @$row->login->UserName ?? '';
+                })
+                ->addColumn('useremail',function($row){
+                    return @$row->login->Email ?? '';
+                })
+                ->addColumn('t&c',function($row){
+                    return @$row->TermsConditions ?? '';
+                })
+                ->addColumn('lastlogin',function($row){
+                    return @$row->LastLoginDateTime  ?? '';
+                })
+                ->addColumn('lastlogout',function($row){
+                    return @$row->LogOutDateTime ?? '';
+                })
+                ->rawColumns(['username','useremail','t&c','lastlogin','lastlogout'])
+                ->make(true);
+        }
+        
+        return view('resources.managerloginLog',['getManagerLogin' => $getManagerLogin ]);
     }
 }

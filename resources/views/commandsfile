@@ -1,0 +1,33 @@
+php artisan make:event ContactUsSubmitted
+php artisan make:event PropertyInquirySubmitted
+php artisan make:model ContactUsHanlding
+php artisan make:migration contactUsRevert
+
+php artisan make:migration privacy-promise-cms
+php artisan make:migration manager_terms_cms
+php artisan make:migration about_us_cms
+php artisan make:migration contact_us_cms
+php artisan make:migration equal_housing_cms
+
+php artisan make:model ContactUsCMS
+php artisan make:model PrivacyPromiseCMS
+php artisan make:model ManagerTermsCMS
+php artisan make:model EqualHousingCMS
+
+========================== Contact Us ========================
+ Schema::create('contact_us_reverts', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->string('message');
+            $table->string('subject');
+            $table->enum('reverted', ['yes', 'no'])->default('no');
+            $table->timestamps();
+        });
+
+        php artisan migrate --path=/database/migrations/test/
+        php artisan make:migration contactUsRevert
+        php artisan migrate --path=/database/migrations/2024_12_07_152225_contact_us_revert.php
+
+        php artisan make:model ContactUsHanlding
+        

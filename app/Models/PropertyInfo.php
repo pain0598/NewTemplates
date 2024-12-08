@@ -18,4 +18,8 @@ class PropertyInfo extends Model
     public function login(){
         return $this->belongsTo(Login::class,'UserId','Id');
     }
+
+    public function propertyinquiry(){
+        return $this->hasMany(PropertyInquiry::class,'PropertyId','Id');
+    }
 }

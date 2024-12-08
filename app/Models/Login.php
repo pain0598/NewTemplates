@@ -23,4 +23,12 @@ class Login extends Model
     public function propertyinfo(){
         return $this->hasMany(PropertyInfo::class,'UserId','Id');
     }
+
+    public function managerlog(){
+        return $this->hasMany(ManagerLogLogin::class,'PropertyManagerId','Id');
+    }
+
+    public function propertyinquiry(){
+        return $this->hasMany(PropertyInquiry::class,'UserId','Id');
+    }
 }

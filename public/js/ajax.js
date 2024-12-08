@@ -110,6 +110,205 @@ $(function () {
     });
 });
 
+$(function () {
+    var table = $("#managerloginlogs").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "manager-login-logs",
+        },
+        columns: [{
+            data: "DT_RowIndex",
+            name: "DT_RowIndex",
+            orderable: true,
+            searchable: true,
+        },
+        {
+            data: 'username',
+            name: 'username',
+            orderable: true,
+            searchable: true,
+        },
+        {
+            data: 'useremail',
+            name: 'useremail',
+            orderable: true,
+            searchable: true,
+        },
+        {
+            data: 't&c',
+            name: 't&c',
+        },
+        {
+            data: 'lastlogin',
+            name: 'lastlogin',
+        },
+        {
+            data: 'lastlogout',
+            name: 'lastlogout',
+            orderable: false,
+            searchable: false
+        }
+        ],
+        order: [
+            [1, "asc"]
+        ],
+        pageLength: 40,
+        dom: "Bfrtip",
+        buttons: ["csv"],
+    });
+
+    // Reset form fields and reload the Datatable
+    $("button:contains('Reset')").on("click", function () {
+        $("form")[0].reset();
+        table.draw();
+    });
+    $('#exportCsv').on('click', function () {
+        let query = {
+            rentername: $("input[name='rentername']").val(),
+            adminname: $("input[name='adminname']").val(),
+            fromsearch: $("input[name='fromsearch']").val(),
+            tosearch: $("input[name='tosearch']").val(),
+        };
+
+        let url = `renter-info-update-history/export?${$.param(query)}`;
+        window.location.href = url;
+    });
+});
+
+$(function () {
+    var table = $("#contactusreverts").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: 'contact-us',
+        },
+        columns: [{
+            data: "DT_RowIndex",
+            name: "DT_RowIndex",
+            orderable: true,
+            searchable: true,
+        },
+        {
+            data: 'name',
+            name: 'name',
+            orderable: true,
+            searchable: true,
+        },
+        {
+            data: 'email',
+            name: 'email',
+            orderable: true,
+            searchable: true,
+        },
+        {
+            data: 'subject',
+            name: 'subject',
+        },
+        {
+            data: 'message',
+            name: 'message',
+        },
+        {
+            data: 'revert',
+            name: 'revert',
+            orderable: false,
+            searchable: false
+        }
+        ],
+        order: [
+            [1, "asc"]
+        ],
+        pageLength: 40,
+        dom: "Bfrtip",
+        buttons: ["csv"],
+    });
+
+    // Reset form fields and reload the Datatable
+    $("button:contains('Reset')").on("click", function () {
+        $("form")[0].reset();
+        table.draw();
+    });
+    $('#exportCsv').on('click', function () {
+        let query = {
+            rentername: $("input[name='rentername']").val(),
+            adminname: $("input[name='adminname']").val(),
+            fromsearch: $("input[name='fromsearch']").val(),
+            tosearch: $("input[name='tosearch']").val(),
+        };
+
+        let url = `renter-info-update-history/export?${$.param(query)}`;
+        window.location.href = url;
+    });
+});
+
+// propertyinquiries
+$(function () {
+    var table = $("#propertyinquiries").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: 'property-inquiries',
+        },
+        columns: [{
+            data: "DT_RowIndex",
+            name: "DT_RowIndex",
+            orderable: true,
+            searchable: true,
+        },
+        {
+            data: 'propertyname',
+            name: 'propertyname',
+            orderable: true,
+            searchable: true,
+        },
+        {
+            data: 'username',
+            name: 'username',
+            orderable: true,
+            searchable: true,
+        },
+        {
+            data: 'subject',
+            name: 'subject',
+        },
+        {
+            data: 'message',
+            name: 'message',
+        },
+        {
+            data: 'revert',
+            name: 'revert',
+            orderable: false,
+            searchable: false
+        }
+        ],
+        order: [
+            [1, "asc"]
+        ],
+        pageLength: 40,
+        dom: "Bfrtip",
+        buttons: ["csv"],
+    });
+
+    // Reset form fields and reload the Datatable
+    $("button:contains('Reset')").on("click", function () {
+        $("form")[0].reset();
+        table.draw();
+    });
+    $('#exportCsv').on('click', function () {
+        let query = {
+            rentername: $("input[name='rentername']").val(),
+            adminname: $("input[name='adminname']").val(),
+            fromsearch: $("input[name='fromsearch']").val(),
+            tosearch: $("input[name='tosearch']").val(),
+        };
+
+        let url = `renter-info-update-history/export?${$.param(query)}`;
+        window.location.href = url;
+    });
+});
+
 $(document).on("click", ".edit", function () {
     var id = $(this).data("id");
     // Open a modal or inline editing interface here

@@ -25,6 +25,15 @@ use App\Http\Controllers\SettingController;
 
 
 Route::get('/',[AdminController::class,'index']);
+Route::get('/contact-us',[AdminController::class,'revertContactUs'])->name('admin-contact-us');
+Route::post('/revert-update',[AdminController::class,'revertContactUsUpdate'])->name('admin-revert-update');
+Route::get('/property-inquiries',[AdminController::class,'revertPropertyInquiry'])->name('admin-property-inquiries');
+Route::post('/revert-property-inquiry-update',[AdminController::class,'revertPropertyInquiryUpdate'])->name('admin-revert-property-inquiry-update');
+
+Route::get('/pages',[AdminController::class,'pagesCMS'])->name('admin-pages');
+
+
+
 Route::post('/send-email',[AdminController::class,'sendEmail'])->name('send-email');
 Route::get('renter-info-update-history',[ClientController::class,'renterInfoUpdateHistory'])->name('admin-renter-update-history');
 Route::get('renter-info-update-history/export', [ClientController::class,'exportCsv'])->name('renter-info.export');
@@ -46,6 +55,7 @@ Route::post('create-manager',[ManagerController::class,'createManager'])->name('
 Route::post('create-renter',[ManagerController::class,'createRenter'])->name('create-renter');
 Route::get('search-renter',[ManagerController::class,'searchRenter'])->name('search-renter');
 Route::get('searched-renters',[ManagerController::class,'getSearchedRenter'])->name('searched-renters');
+Route::get('manager-login-logs',[ManagerController::class,'manageLogLogin'])->name('admin-manager-login-logs');
 
 Route::get('search-manager',[ManagerController::class,'searchManager'])->name('search-manager');
 
@@ -69,9 +79,6 @@ Route::group(['prefix' => 'administration'],function(){
 
 
 
-Route::group(['prefix'=>'users'],function(){
-    Route::get('/',[UserPanelController::class,'index'])->name('users-index');
-});
 
 
 
@@ -79,4 +86,13 @@ Route::group(['prefix' => 'settings'],function(){
     Route::get('manage-footer',[SettingController::class,'manageFooter'])->name('manage-footer');
     Route::post('update-footer',[SettingController::class,'UpdateFooter'])->name('update-footer');
 
+});
+
+
+
+
+Route::group(['prefix'=>'users'],function(){
+    Route::get('/',[UserPanelController::class,'index'])->name('users-index');
+    Route::get('/contact-us',[UserPanelController::class,'contactUs'])->name('users-contactus');
+    Route::post('/contact-us-submit',[UserPanelController::class,'contactUsSubmit'])->name('users-contact-us-submit');
 });

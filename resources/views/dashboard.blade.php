@@ -15,11 +15,43 @@
         <!-- d-flex ht-100v -->
 
         <div class="slim-mainpanel" style="position: relative;">
+
             <div class="container pd-t-30">
                 <div class="dash-headline-two">
                     <div>
                         <h4 class="tx-inverse mg-b-5">Good morning, Katherine!</h4>
                         <p class="mg-b-0">Today is March 20, 2018</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="card card-dash-one mg-t-20">
+                    <div class="row no-gutters">
+                        <div class="col-lg-4">
+                            <a href="{{ route('admin-contact-us')}}">
+                                <i class="icon ion-ios-analytics-outline"></i>
+                                <div class="dash-content">
+                                    <label class="tx-primary">Pending Contact Us Messages </label>
+                                    <h2>0</h2>
+                                </div>
+                            </a>
+
+                        </div>
+                        <div class="col-lg-4">
+                            <a href="">
+                                <i class="icon ion-ios-pie-outline"></i>
+                                <div class="dash-content">
+                                    <label class="tx-success">Pending Property Inquiries </label>
+                                    <h2>10</h2>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-4">
+                            <i class="icon ion-ios-stopwatch-outline"></i>
+                            <div class="dash-content">
+                                <label class="tx-purple">Commision</label>
+                                <h2>781,524</h2>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <hr>
@@ -237,7 +269,7 @@
                     </div><!-- col-4 -->
                 </div><!-- row -->
 
-            </div><!-- container -->
+            </div>
             <div class="resize-sensor" style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;">
                 <div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;">
                     <div style="position: absolute; left: 0px; top: 0px; transition: all; width: 100000px; height: 100000px;"></div>
