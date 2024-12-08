@@ -1,6 +1,6 @@
 @extends('layout.app')
 @section('content')
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
 <style>
     .tab-content {
         margin-left: 14px;
@@ -71,6 +71,22 @@
     .btn-send-message {
         display: inline-block;
         float: right;
+    }
+
+    .vertical-tabs .nav-link {
+        text-align: left;
+        width: 100%;
+    }
+
+    .tab-content {
+        width: 100%;
+    }
+
+    .tab-pane form {
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
     }
 </style>
 <style>
@@ -172,24 +188,100 @@
                             id="managerterms"
                             role="tabpanel"
                             aria-labelledby="ex3-tab-3">
-                            <div class="vertical-tabs">
+                            <div class="vertical-tabs mt-5">
                                 <div class="d-flex align-items-start">
+                                    <!-- Tab Buttons -->
                                     <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
-                                        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</button>
-                                        <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false" disabled>Disabled</button>
-                                        <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</button>
-                                        <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
+                                        <!-- <ul class="list-group">
+                                            @foreach($managerterms as $index => $term)
+                                            <li class="list-group-item">
+                                                <a href=""
+                                                    class="btn nav-link {{ $index === 0 ? 'active' : '' }}"
+                                                    id="v-pills-tab-{{ $term->id }}"
+                                                    data-bs-toggle="pill"
+                                                    data-bs-target="#v-pills-content-{{ $term->id }}"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="v-pills-content-{{ $term->id }}"
+                                                    aria-selected="{{ $index === 0 ? 'true' : 'false' }}"
+                                                    >
+
+                                                    {{ $term->title }}
+                                                </a>
+                                            </li>
+                                            @endforeach
+                                        </ul> -->
+                                        <div class="list-group">
+                                        @foreach($managerterms as $index => $term)
+                                            <button type="button" class="list-group-item list-group-item-action {{ $index === 0 ? 'active' : '' }}" 
+                                            id="v-pills-tab-{{ $term->id }}"
+                                            data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-content-{{ $term->id }}"
+                                            aria-current="true"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="v-pills-content-{{ $term->id }}"
+                                            aria-selected="{{ $index === 0 ? 'true' : 'false' }}"
+                                            >
+                                            {{ $term->title }}
+                                            </button>
+                                            @endforeach
+                                        </div>
                                     </div>
-                                    <div class="tab-content" id="v-pills-tabContent">
-                                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">Tab1</div>
-                                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">Tab2</div>
-                                        <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab" tabindex="0">Tab3</div>
-                                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">Tab4</div>
-                                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">Tab5</div>
+
+                                    <!-- Tab Content -->
+                                    <div class="tab-content w-100" id="v-pills-tabContent">
+                                        @foreach($managerterms as $index => $term)
+                                        <div
+                                            class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}"
+                                            id="v-pills-content-{{ $term->id }}"
+                                            role="tabpanel"
+                                            aria-labelledby="v-pills-tab-{{ $term->id }}"
+                                            tabindex="0">
+                                            <form action="" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="form-layout">
+                                                    <div class="row mg-b-25">
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group">
+                                                                <label class="form-control-label" for="title-{{ $term->id }}">Title: <span class="tx-danger">*</span></label>
+                                                                <input type="text" class="form-control" id="title-{{ $term->id }}" name="title" value="{{ $term->title }}" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group">
+                                                                <label class="form-control-label" for="title-{{ $term->id }}">Title: <span class="tx-danger">*</span></label>
+                                                                <textarea
+                                                                    class="form-control"
+                                                                    id="description-{{ $term->id }}"
+                                                                    name="description"
+                                                                    rows="4"
+                                                                    required>{{ $term->description }}</textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group mg-b-10-force">
+                                                                <label class="form-control-label">Select Status : <span class="tx-danger">*</span></label>
+                                                                <select class="form-control select2 select2-hidden-accessible" data-placeholder="Choose country" tabindex="-1" aria-hidden="true">
+                                                                    <option label="Choose country"></option>
+                                                                    <option value="1">Show</option>
+                                                                </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 323px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-hdis-container"><span class="select2-selection__rendered" id="select2-hdis-container"><span class="select2-selection__placeholder">Choose country</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-layout-footer">
+                                                        <button class="btn btn-primary bd-0">Submit Form</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
+
 
                         </div>
                     </div>

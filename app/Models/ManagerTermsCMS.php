@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ManagerTermsCMS extends Model
 {
     use HasFactory;
+    protected $table = 'manager_terms_cms';
+    protected $guarded = [];
+    
 }

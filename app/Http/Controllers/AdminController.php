@@ -9,6 +9,8 @@ use App\Models\ContactUsHanlding;
 use Yajra\DataTables\DataTables;
 use App\Models\PropertyInquiry;
 use Illuminate\Support\Facades\Log;
+use App\Models\ManagerTermsCMS;
+
 
 class AdminController extends Controller
 {
@@ -232,6 +234,9 @@ class AdminController extends Controller
     }
 
     public function pagesCMS(){
-        return view('pages');
+        $managerterms = ManagerTermsCMS::where('status',1)->get();
+        return view('pages',[
+            'managerterms' => $managerterms,
+        ]);
     }
 }
