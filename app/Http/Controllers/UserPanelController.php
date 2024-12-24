@@ -45,4 +45,9 @@ class UserPanelController extends Controller
         // ]);
         return Response::make('', 200);
     }
+
+
+    public function tabView(){
+        return view('users.tabview');
+    }
 }

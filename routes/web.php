@@ -31,6 +31,8 @@ Route::get('/property-inquiries',[AdminController::class,'revertPropertyInquiry'
 Route::post('/revert-property-inquiry-update',[AdminController::class,'revertPropertyInquiryUpdate'])->name('admin-revert-property-inquiry-update');
 
 Route::get('/pages',[AdminController::class,'pagesCMS'])->name('admin-pages');
+Route::get('/admin-profile',[AdminController::class,'adminProfile'])->name('admin-profile');
+Route::get('/add-renter',[AdminController::class,'addRenter'])->name('admin-renter');
 
 
 
@@ -95,4 +97,5 @@ Route::group(['prefix'=>'users'],function(){
     Route::get('/',[UserPanelController::class,'index'])->name('users-index');
     Route::get('/contact-us',[UserPanelController::class,'contactUs'])->name('users-contactus');
     Route::post('/contact-us-submit',[UserPanelController::class,'contactUsSubmit'])->name('users-contact-us-submit');
+    Route::get('/tab-view',[UserPanelController::class,'tabView'])->name('users-tab-view');
 });

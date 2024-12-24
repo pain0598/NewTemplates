@@ -239,4 +239,12 @@ class AdminController extends Controller
             'managerterms' => $managerterms,
         ]);
     }
+
+    public function adminProfile(){
+        return view('adminProfile');
+    }
+
+    public function addRenter(){
+        return view('addRenter');
+    }
 }
