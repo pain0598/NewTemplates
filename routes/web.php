@@ -98,4 +98,5 @@ Route::group(['prefix'=>'users'],function(){
     Route::get('/contact-us',[UserPanelController::class,'contactUs'])->name('users-contactus');
     Route::post('/contact-us-submit',[UserPanelController::class,'contactUsSubmit'])->name('users-contact-us-submit');
     Route::get('/tab-view',[UserPanelController::class,'tabView'])->name('users-tab-view');
+    Route::get('/user-register',[UserPanelController::class,'userRegister'])->name('client-user-register');
 });

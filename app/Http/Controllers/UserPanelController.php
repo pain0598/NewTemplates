@@ -50,4 +50,8 @@ class UserPanelController extends Controller
     public function tabView(){
         return view('users.tabview');
     }
+
+    public function userRegister(){
+        return view('client.registeruser');
+    }
 }
