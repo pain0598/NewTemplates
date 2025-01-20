@@ -54,4 +54,8 @@ class UserPanelController extends Controller
     public function userRegister(){
         return view('client.registeruser');
     }
+
+    public function  addProperty(){
+        return view('users.addProperty');
+    }
 }
