@@ -29,6 +29,11 @@ Route::get('/contact-us',[AdminController::class,'revertContactUs'])->name('admi
 Route::post('/revert-update',[AdminController::class,'revertContactUsUpdate'])->name('admin-revert-update');
 Route::get('/property-inquiries',[AdminController::class,'revertPropertyInquiry'])->name('admin-property-inquiries');
 Route::post('/revert-property-inquiry-update',[AdminController::class,'revertPropertyInquiryUpdate'])->name('admin-revert-property-inquiry-update');
+Route::get('/aboutUsCMS',[AdminController::class,'aboutUsCMS'])->name('admin-aboutus');
+Route::post('/aboutUsCMS-update',[AdminController::class,'aboutUsCMSUpdate'])->name('aboutus.update');
+Route::get('/equal-housing',[AdminController::class,'equalHousing'])->name('equal-housing');
+Route::post('/equal-housing-update',[AdminController::class,'equalHousingUpdate'])->name('equal-housing-update');
+
 
 Route::get('/pages',[AdminController::class,'pagesCMS'])->name('admin-pages');
 Route::get('/admin-profile',[AdminController::class,'adminProfile'])->name('admin-profile');
@@ -100,4 +105,5 @@ Route::group(['prefix'=>'users'],function(){
     Route::get('/tab-view',[UserPanelController::class,'tabView'])->name('users-tab-view');
     Route::get('/user-register',[UserPanelController::class,'userRegister'])->name('client-user-register');
     Route::get('/add-property',[UserPanelController::class,'addProperty'])->name('users-add-property');
+    Route::get('/home-page',[UserPanelController::class,'homePage'])->name('users-home-page');
 });

@@ -52,7 +52,8 @@
 
     </div>
 
-  </section><!-- /Hero Section -->
+  </section>
+  <!-- /Hero Section -->
 
   <!-- Services Section -->
   <section id="services" class="services section">

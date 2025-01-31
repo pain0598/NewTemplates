@@ -10,7 +10,7 @@ use Yajra\DataTables\DataTables;
 use App\Models\PropertyInquiry;
 use Illuminate\Support\Facades\Log;
 use App\Models\ManagerTermsCMS;
-
+use App\Models\AboutUSCMS;
 
 class AdminController extends Controller
 {
@@ -233,18 +233,72 @@ class AdminController extends Controller
         return response()->json(['success' => true, 'message' => 'Reverted successfully.']);
     }
 
-    public function pagesCMS(){
-        $managerterms = ManagerTermsCMS::where('status',1)->get();
-        return view('pages',[
+    public function pagesCMS()
+    {
+        $managerterms = ManagerTermsCMS::where('status', 1)->get();
+        return view('pages', [
             'managerterms' => $managerterms,
         ]);
     }
 
-    public function adminProfile(){
+    public function adminProfile()
+    {
         return view('adminProfile');
     }
 
-    public function addRenter(){
+    public function addRenter()
+    {
         return view('addRenter');
     }
+
+    public function aboutUsCMS()
+    {
+        $aboutUs = AboutUSCMS::first();
+        return view('admin.Settings.aboutUsCMS',['aboutUs' => $aboutUs]);
+    }
+
+    public function aboutUsCMSUpdate(Request $request)
+    {
+        dd($request->all());
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'heading' => 'required|string|max:255',
+            'description' => 'required',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+        ]);
+
+        $aboutUs = AboutUs::firstOrCreate([]);
+        $aboutUs->title = $request->title;
+        $aboutUs->heading = $request->heading;
+        $aboutUs->description = $request->description;
+
+        if ($request->hasFile('image')) {
+            if ($aboutUs->image) {
+                Storage::disk('s3')->delete($aboutUs->image);
+            }
+            $path = $request->file('image')->store('aboutus', 's3');
+            $aboutUs->image = Storage::disk('s3')->url($path);
+        }
+
+        $aboutUs->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'About Us content updated successfully.',
+            'image' => $aboutUs->image ?? null
+        ]);
+    }
+
+    public function equalHousing(){
+        $aboutUs = AboutUSCMS::first();
+        $managerterms = ManagerTermsCMS::where('status', 1)->get();
+        return view('admin.Settings.equalHousing',['managerterms' => $managerterms]);
+    }
+
+
+    public function equalHousingUpdate(Request $request){
+        dd($request->all());
+    }
+
+
 }

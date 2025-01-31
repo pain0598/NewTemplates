@@ -58,4 +58,8 @@ class UserPanelController extends Controller
     public function  addProperty(){
         return view('users.addProperty');
     }
+
+    public function homePage(){
+        return view('users.pages.homepage');
+    }
 }

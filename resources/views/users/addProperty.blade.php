@@ -161,9 +161,9 @@
             }
 
             #multistep_form {
-                /* width: 550px; */
+                width: 550px;
                 margin: 0 auto;
-                text-align: center;
+                /* text-align: center; */
                 position: relative;
                 /* height: 100%; */
                 z-index: 999;
@@ -176,6 +176,7 @@
                 overflow: hidden;
                 margin: 0 auto 30px;
                 padding: 0;
+                text-align: center;
             }
 
             #progress_header li {
@@ -398,6 +399,7 @@
                 text-align: center;
                 top: 50%;
             }
+
             .title-box p {
                 font-weight: 600;
                 font-size: 1.2rem;
@@ -448,18 +450,78 @@
                         <div class="col-lg-9 mt-4 mt-lg-0 px-4">
                             <div class="main">
                                 <form id="multistep_form">
-                                    <!-- progressbar -->
+
                                     <ul id="progress_header">
                                         <li class="active"></li>
                                         <li></li>
                                         <li></li>
                                     </ul>
-                                    <!-- Step 01 -->
                                     <div class="multistep-box">
                                         <div class="title-box">
                                             <h2>Select State & City</h2>
                                             <p class="mt-2"> Select location details in which you are going to list your property and click on Continue button to move to next step.</p>
                                         </div>
+
+                                        <div class="col-md-12 mt-3">
+                                            <label for="addressInput" class="f-w600">State <small class="text-danger">*</small></label>
+                                            <select class="form-control form-select form-control-a state-select-box mt-1" name="add_property_state" id="add-property-state" required="">
+                                                <option value="">Select State</option>
+                                                <option value="6">Colorado</option>
+                                                <option value="113">California</option>
+                                                <option value="119">asdsad</option>
+                                                <option value="120">ewrewr</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select a state.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 mt-3">
+                                            <label for="addressInput f-w600" class="f-w600"> City <small class="text-danger">*</small></label>
+                                            <select class="form-control form-select form-control-a mt-1" id="add-property-city" name="add_property_city" required="">
+                                                <option value="">Select City</option>
+                                                <option value="1">Arvada</option>
+                                                <option value="3">Aurora</option>
+                                                <option value="6">Boulder</option>
+                                                <option value="8">Brighton</option>
+                                                <option value="9">Broomfield</option>
+                                                <option value="11">Castle Rock</option>
+                                                <option value="12">Centennial</option>
+                                                <option value="17">Colorado Springs</option>
+                                                <option value="19">Commerce City</option>
+                                                <option value="23">Denver</option>
+                                                <option value="29">Englewood</option>
+                                                <option value="33">Federal Heights</option>
+                                                <option value="34">Fort Collins</option>
+                                                <option value="40">Glendale</option>
+                                                <option value="42">Golden</option>
+                                                <option value="45">Greeley</option>
+                                                <option value="47">Greenwood Village</option>
+                                                <option value="55">Lakewood</option>
+                                                <option value="59">Littleton</option>
+                                                <option value="60">Lone Tree</option>
+                                                <option value="61">Longmont</option>
+                                                <option value="62">Louisville</option>
+                                                <option value="63">Loveland</option>
+                                                <option value="69">Northglenn</option>
+                                                <option value="72">Parker</option>
+                                                <option value="73">Pueblo</option>
+                                                <option value="76">Sheridan</option>
+                                                <option value="81">Superior</option>
+                                                <option value="83">Thornton</option>
+                                                <option value="86">Westminster</option>
+                                                <option value="87">Wheat Ridge</option>
+                                                <option value="174">Highlands Ranch</option>
+                                                <option value="175">Henderson</option>
+                                                <option value="190">Durango</option>
+                                                <option value="222">Morrison</option>
+                                                <option value="224">Lafayette</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select a city.
+                                            </div>
+                                        </div>
+
                                         <p>
                                             <input type="text" name="email" placeholder="Email" id="email">
                                             <span id="error-email"></span>
@@ -882,6 +944,20 @@
             var error = false;
 
             // email validation
+
+
+            $("#add-property-state").change(function() {
+                var state = $(this).val();
+                if (state === '') {
+                    $("#error-state").text('Please select a State.');
+                    $(this).addClass("box_error");
+                    error = true;
+                } else {
+                    $("#error-state").text('');
+                    error = false;
+                    $(this).removeClass("box_error");
+                }
+            });
             $("#email").keyup(function() {
                 var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
                 if (!emailReg.test($("#email").val())) {
@@ -927,8 +1003,6 @@
                     $("#cpass").removeClass("box_error");
                 }
             });
-
-
 
             // twitter
             $("#twitter").keyup(function() {
